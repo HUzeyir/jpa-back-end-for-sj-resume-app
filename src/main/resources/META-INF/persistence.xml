@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+
+    <persistence-unit name="pu" transaction-type="RESOURCE_LOCAL">
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <!--<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/jpa-hibernate-for-demowebapp"/>-->
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/jpa-hibernate-for-demowebapp?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="1234"/>
+            
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
+            <!--<property name="hibernate.hbm2ddl.auto" value="create"/>-->
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="current_session_context_class" value="thread"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            
+            <!--C3P0-->
+            <property name="hibernate.c3p0.min_size">5</property>
+            <property name="hibernate.c3p0.max_size">20</property>
+            <property name="hibernate.c3p0.acquire_increment">5</property>
+            <property name="hibernate.c3p0.timeout">1800</property>
+        </properties>
+    </persistence-unit>
+</persistence>
