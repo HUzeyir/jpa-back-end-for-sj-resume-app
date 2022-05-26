@@ -3,10 +3,8 @@ package com.mycompany.entity;
 import com.mycompany.entity.util.PhoneType;
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.persistence.CollectionTable;
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,14 +27,14 @@ public class Phone implements Serializable {
     private Map<PhoneType, String> number = new HashMap<>();
     @ManyToOne
 //    @Column(name = "user_id")
-    private User user;
+    private UserDetail userDetail;
 
     public Phone() {
     }
 
-    public Phone(byte id, User user) {
+    public Phone(byte id, UserDetail userDetail) {
         this.id = id;
-        this.user = user;
+        this.userDetail = userDetail;
     }
 
     public void addNumber(PhoneType phoneType, String numb) {
@@ -59,12 +57,12 @@ public class Phone implements Serializable {
         this.number = number;
     }
 
-    public User getUser() {
-        return user;
+    public UserDetail getUser() {
+        return userDetail;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(UserDetail user) {
+        this.userDetail = userDetail;
     }
 
 }

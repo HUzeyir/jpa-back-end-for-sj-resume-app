@@ -35,8 +35,7 @@ public class Address implements Serializable {
     @Column(name = "street")
     private String street;
 
-//    @Column(name = "user_detail_id")
-    @OneToOne(mappedBy = "address_id")
+    @OneToOne(mappedBy = "address")
     private UserDetail userDetail;
 
     public Address() {

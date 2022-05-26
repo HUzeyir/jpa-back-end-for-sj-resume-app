@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.mycompany.entity;
 
 import java.io.Serializable;
@@ -20,10 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-/**
- *
- * @author HuzeyirPc
- */
+
 @Entity
 public class Education implements Serializable {
 
@@ -44,7 +37,6 @@ public class Education implements Serializable {
     private Date graduatedDate;
 
     @ManyToMany(mappedBy = "educations")
-    @JoinTable(name = "users_educations")
     private List<UserDetail> userDetail = new ArrayList<>();
 
     public Education() {

@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.CollectionTable;
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,10 +17,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-/**
- *
- * @author HuzeyirPc
- */
 @Entity
 public class Link implements Serializable {
 
@@ -33,16 +28,16 @@ public class Link implements Serializable {
     @ElementCollection
     @CollectionTable(name = "user_link")
     private List<String> linkName = new ArrayList<>();
+    
     @ManyToOne
-//    @Column(name="user_id")
-    private User user;
+    private UserDetail userDetail;
 
     public Link() {
     }
 
     public Link(Long id, User user) {
         this.id = id;
-        this.user = user;
+        this.userDetail = userDetail;
     }
 
     public void addLink(String link) {
@@ -65,15 +60,13 @@ public class Link implements Serializable {
         this.linkName = linkName;
     }
 
-    public User getUser() {
-        return user;
+    public UserDetail getUserDetail() {
+        return userDetail;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserDetail(UserDetail userDetail) {
+        this.userDetail = userDetail;
     }
-    
-    
     
     @Override
     public int hashCode() {

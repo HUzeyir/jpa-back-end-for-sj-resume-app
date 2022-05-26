@@ -28,7 +28,6 @@ public class Nationality implements Serializable {
     private Short id;
     private String countryName;
     @ManyToOne
-//    @Column(name = "user_detail_id")
     private UserDetail userDetail;
 
     public Nationality() {

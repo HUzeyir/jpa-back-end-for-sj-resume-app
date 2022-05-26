@@ -2,7 +2,6 @@ package com.mycompany.main;
 
 import com.mycompany.entity.Skill;
 import com.mycompany.entity.UserDetail;
-import com.mycompany.context.Context;
 import com.mycompany.daoImpl.AbstractDao;
 import com.mycompany.daoInter.UserDaoInter;
 import java.sql.Date;

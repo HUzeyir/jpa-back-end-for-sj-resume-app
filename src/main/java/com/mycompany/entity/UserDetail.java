@@ -6,12 +6,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -26,38 +27,43 @@ public class UserDetail implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Lob
     private String about;
+
+    @Lob
+    private String image;
+
     @Temporal(TemporalType.DATE)
     private Date age;
     private Date addDate = new Date();
     private Date updateDate;
 
     @OneToOne(cascade = CascadeType.ALL)
-//    @Column(name = "address_id")
     private Address address;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "userDetail_educations")
     private List<Education> educations = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userDetail", fetch = FetchType.LAZY)
     private List<Experience> experience = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "userDetail", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Language> languages = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userDetail", fetch = FetchType.LAZY)
     private List<Link> links = new ArrayList<>();
 
-    @OneToMany(mappedBy = "userDetail")
+    @OneToMany(mappedBy = "userDetail", fetch = FetchType.LAZY)
     private List<Nationality> naties = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "userDetail", cascade = CascadeType.ALL)
     private List<Phone> phones = new ArrayList<>();
 
     @OneToOne(mappedBy = "userDetail")
     private User user;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userDetail")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userDetail", fetch = FetchType.LAZY)
     private List<UserSkill> userSkills = new ArrayList<>();
 
     public UserDetail() {
@@ -82,6 +88,14 @@ public class UserDetail implements Serializable {
         return id;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+    
     public void setId(Long id) {
         this.id = id;
     }

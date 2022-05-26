@@ -27,7 +27,6 @@ public class UserSkill implements Serializable {
     private Skill skill;
 
     @ManyToOne
-//    @Column(name = "user_detail_id")
     private UserDetail userDetail;
 
     public UserSkill() {
