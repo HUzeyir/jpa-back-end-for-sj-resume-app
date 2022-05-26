@@ -1,14 +1,70 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.entity;
 
-/**
- *
- * @author HuzeyirPc
- */
-public class Phone {
-    
+import com.mycompany.entity.util.PhoneType;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity
+public class Phone implements Serializable {
+
+    private static final Long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private byte id;
+    @ElementCollection
+    @CollectionTable(name = "user_phone")
+    @JoinColumn(name = "user_id")
+    private Map<PhoneType, String> number = new HashMap<>();
+    @ManyToOne
+//    @Column(name = "user_id")
+    private User user;
+
+    public Phone() {
+    }
+
+    public Phone(byte id, User user) {
+        this.id = id;
+        this.user = user;
+    }
+
+    public void addNumber(PhoneType phoneType, String numb) {
+        this.number.put(phoneType, numb);
+    }
+
+    public byte getId() {
+        return id;
+    }
+
+    public void setId(byte id) {
+        this.id = id;
+    }
+
+    public Map<PhoneType, String> getNumber() {
+        return number;
+    }
+
+    public void setNumber(Map<PhoneType, String> number) {
+        this.number = number;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 }

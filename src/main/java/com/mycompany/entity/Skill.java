@@ -7,31 +7,42 @@ package com.mycompany.entity;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
-/**
- *
- * @author HuzeyirPc
- */
 
 @Entity
 public class Skill implements Serializable {
 
-    public static final long serialUID = 1L;
+    private static final Long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "skill_id")
     private Short skilId;
+    
+//    @Column(name="skill_name")
     private String skillName;
-    private Byte power;
-    private User user;
-
+    
+    @OneToOne
+//    @Column(name="user_skill_id")
+    private UserSkill userSkill;
+    
+    
     public Skill() {
     }
 
-    public Skill(Short skilId, String skillName, Byte power, User user) {
+    public Skill(Short skilId, String skillName) {
         this.skilId = skilId;
         this.skillName = skillName;
-        this.power = power;
-        this.user = user;
+    }
+
+    public Skill(String skillName) {
+        this.skillName = skillName;
     }
 
     public Short getSkilId() {
@@ -48,22 +59,6 @@ public class Skill implements Serializable {
 
     public void setSkillName(String skillName) {
         this.skillName = skillName;
-    }
-
-    public Byte getPower() {
-        return power;
-    }
-
-    public void setPower(Byte power) {
-        this.power = power;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     @Override
@@ -93,7 +88,7 @@ public class Skill implements Serializable {
 
     @Override
     public String toString() {
-        return "Skill{" + "skilId=" + skilId + ", skillName=" + skillName + ", power=" + power + ", user=" + user + '}';
+        return "Skill:/n skilId: " + skilId + ", skillName: " + skillName;
     }
 
 }

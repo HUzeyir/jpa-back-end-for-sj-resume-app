@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.mycompany.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,10 +12,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-/**
- *
- * @author HuzeyirPc
- */
+
 @Entity
 @Table(name = "address")
 @NamedQueries({
@@ -44,11 +35,32 @@ public class Address implements Serializable {
     @Column(name = "street")
     private String street;
 
-    @Column(name = "user_id")
-    @OneToOne
-    private User user;
+//    @Column(name = "user_detail_id")
+    @OneToOne(mappedBy = "address_id")
+    private UserDetail userDetail;
 
     public Address() {
+    }
+
+    public Address(String city, String town, String street) {
+        this.city = city;
+        this.town = town;
+        this.street = street;
+    }
+
+    public Address(Integer addressId, String city, String town, String street, UserDetail userDetail) {
+        this.addressId = addressId;
+        this.city = city;
+        this.town = town;
+        this.street = street;
+        this.userDetail = userDetail;
+    }
+
+    public Address(String city, String town, String street, UserDetail userDetail) {
+        this.city = city;
+        this.town = town;
+        this.street = street;
+        this.userDetail = userDetail;
     }
 
     public Address(Integer addressId) {
@@ -61,6 +73,14 @@ public class Address implements Serializable {
 
     public void setAddressId(Integer addressId) {
         this.addressId = addressId;
+    }
+
+    public UserDetail getUserDetail() {
+        return userDetail;
+    }
+
+    public void setUserDetail(UserDetail userDetail) {
+        this.userDetail = userDetail;
     }
 
     public String getCity() {
@@ -109,7 +129,7 @@ public class Address implements Serializable {
 
     @Override
     public String toString() {
-        return "Address{" + "addressId=" + addressId + ", city=" + city + ", town=" + town + ", street=" + street + ", user=" + user + '}';
+        return "Address{" + "addressId=" + addressId + ", city=" + city + ", town=" + town + ", street=" + street + ", user=" + userDetail + '}';
     }
 
 }

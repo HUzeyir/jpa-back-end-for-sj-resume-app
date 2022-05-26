@@ -4,7 +4,7 @@
  */
 package com.mycompany.daoInter;
 
-import com.mycompany.entity.User;
+import com.mycompany.entity.UserDetail;
 import java.util.List;
 
 /**
@@ -13,24 +13,24 @@ import java.util.List;
  */
 public interface UserDaoInter {
 
-    void addUser(User u);
+    void addUser(UserDetail u);
 
-    void addBatchUser(List<User> users);
+    void addBatchUser(List<UserDetail> users);
 
-    boolean updateUser(User u);
+    boolean updateUser(UserDetail u);
 
     boolean deleteUser(int id);
     
-     public User serchUserByEmailAndPassword(String email, String password);
+     public UserDetail serchUserByEmailAndPassword(String email, String password);
 
-    User getUserbyId(int id);
+    UserDetail getUserbyId(int id);
 
-    User serchUserByEmail(String email);
+    UserDetail serchUserByEmail(String email);
 
-    List<User> serchUsersByName(String name);
+    List<UserDetail> serchUsersByName(String name);
 
-    List<User> serchUsersByNameAndSurname(String name, String surName);
+    List<UserDetail> serchUsersByNameAndSurname(String name, String surName);
 
-    List<User> getAllUsers();
+    List<UserDetail> getAllUsers();
 
 }

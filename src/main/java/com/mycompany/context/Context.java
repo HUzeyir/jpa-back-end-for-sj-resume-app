@@ -5,7 +5,7 @@
  */
 package com.mycompany.context;
 
-import com.mycompany.entity.User;
+import com.mycompany.entity.UserDetail;
 import com.mycompany.daoImpl.AddressDaoIml;
 import com.mycompany.daoImpl.SkillDaoImpl;
 import com.mycompany.daoImpl.UserDaoImpl;

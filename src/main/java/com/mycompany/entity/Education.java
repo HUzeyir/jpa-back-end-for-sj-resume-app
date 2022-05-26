@@ -6,6 +6,7 @@
 package com.mycompany.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -14,6 +15,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,7 +27,7 @@ import javax.persistence.TemporalType;
 @Entity
 public class Education implements Serializable {
 
-    public static final Long serialUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,29 +43,42 @@ public class Education implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date graduatedDate;
 
-    @ManyToMany
-    private List<User> users;
+    @ManyToMany(mappedBy = "educations")
+    @JoinTable(name = "users_educations")
+    private List<UserDetail> userDetail = new ArrayList<>();
 
     public Education() {
     }
 
-    public Education(Short id, String uniName, String faculty, String speciality, Date admittedDate, Date graduatedDate, List<User> users) {
+    public Education(Short id, String uniName, String faculty, String speciality, Date admittedDate, Date graduatedDate, List<UserDetail> userDetail) {
         this.id = id;
         this.uniName = uniName;
         this.faculty = faculty;
         this.speciality = speciality;
         this.admittedDate = admittedDate;
         this.graduatedDate = graduatedDate;
-        this.users = users;
+        this.userDetail = userDetail;
     }
 
-    public Education(String uniName, String faculty, String speciality, Date admittedDate, Date graduatedDate, List<User> users) {
+    public Education(String uniName, String faculty, String speciality, Date admittedDate, Date graduatedDate, List<UserDetail> userDetail) {
         this.uniName = uniName;
         this.faculty = faculty;
         this.speciality = speciality;
         this.admittedDate = admittedDate;
         this.graduatedDate = graduatedDate;
-        this.users = users;
+        this.userDetail = userDetail;
+    }
+
+    public Education(String uniName, String faculty, String speciality, Date admittedDate, Date graduatedDate) {
+        this.uniName = uniName;
+        this.faculty = faculty;
+        this.speciality = speciality;
+        this.admittedDate = admittedDate;
+        this.graduatedDate = graduatedDate;
+    }
+
+    public void addUserDetail(UserDetail uDetail) {
+        this.userDetail.add(uDetail);
     }
 
     public Short getId() {
@@ -114,12 +129,12 @@ public class Education implements Serializable {
         this.graduatedDate = graduatedDate;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public List<UserDetail> getUsers() {
+        return userDetail;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setUsers(List<UserDetail> userDetail) {
+        this.userDetail = userDetail;
     }
 
     @Override
@@ -149,7 +164,7 @@ public class Education implements Serializable {
 
     @Override
     public String toString() {
-        return "Education{" + "id=" + id + ", uniName=" + uniName + ", faculty=" + faculty + ", speciality=" + speciality + ", admittedDate=" + admittedDate + ", graduatedDate=" + graduatedDate + ", users=" + users + '}';
+        return "Education{" + "id=" + id + ", uniName=" + uniName + ", faculty=" + faculty + ", speciality=" + speciality + ", admittedDate=" + admittedDate + ", graduatedDate=" + graduatedDate + ", users=" + userDetail + '}';
     }
 
 }

@@ -5,43 +5,48 @@
  */
 package com.mycompany.entity;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author HuzeyirPc
  */
 @Entity
-public class Link {
+public class Link implements Serializable {
+
+    private static final Long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String twitter;
-    private String gitHub;
-    private String linkedIn;
-    private String other;
+    @ElementCollection
+    @CollectionTable(name = "user_link")
+    private List<String> linkName = new ArrayList<>();
+    @ManyToOne
+//    @Column(name="user_id")
+    private User user;
 
     public Link() {
     }
 
-    public Link(Long id, String twitter, String gitHub, String linkedIn, String other) {
+    public Link(Long id, User user) {
         this.id = id;
-        this.twitter = twitter;
-        this.gitHub = gitHub;
-        this.linkedIn = linkedIn;
-        this.other = other;
+        this.user = user;
     }
 
-    public Link(String twitter, String gitHub, String linkedIn, String other) {
-        this.twitter = twitter;
-        this.gitHub = gitHub;
-        this.linkedIn = linkedIn;
-        this.other = other;
+    public void addLink(String link) {
+        this.linkName.add(link);
     }
 
     public Long getId() {
@@ -52,38 +57,24 @@ public class Link {
         this.id = id;
     }
 
-    public String getTwitter() {
-        return twitter;
+    public List<String> getLinkName() {
+        return linkName;
     }
 
-    public void setTwitter(String twitter) {
-        this.twitter = twitter;
+    public void setLinkName(List<String> linkName) {
+        this.linkName = linkName;
     }
 
-    public String getGitHub() {
-        return gitHub;
+    public User getUser() {
+        return user;
     }
 
-    public void setGitHub(String gitHub) {
-        this.gitHub = gitHub;
+    public void setUser(User user) {
+        this.user = user;
     }
-
-    public String getLinkedIn() {
-        return linkedIn;
-    }
-
-    public void setLinkedIn(String linkedIn) {
-        this.linkedIn = linkedIn;
-    }
-
-    public String getOther() {
-        return other;
-    }
-
-    public void setOther(String other) {
-        this.other = other;
-    }
-
+    
+    
+    
     @Override
     public int hashCode() {
         int hash = 7;
@@ -111,9 +102,7 @@ public class Link {
 
     @Override
     public String toString() {
-        return "Link{" + "id=" + id + ", twitter=" + twitter + ", gitHub=" + gitHub + ", linkedIn=" + linkedIn + ", other=" + other + '}';
+        return "Link{" + "id=" + id + ", linkName=" + linkName + '}';
     }
-    
-    
 
 }
