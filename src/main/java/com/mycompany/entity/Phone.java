@@ -5,13 +5,16 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKeyColumn;
 
 @Entity
 public class Phone implements Serializable {
@@ -22,11 +25,12 @@ public class Phone implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private byte id;
     @ElementCollection
-    @CollectionTable(name = "user_phone")
-    @JoinColumn(name = "user_id")
+    @CollectionTable(name = "userDetail_phone")
+    @JoinColumn(name = "phone_id")
+    @Column(name="number")
+    @MapKeyColumn(name="phone_type")
     private Map<PhoneType, String> number = new HashMap<>();
-    @ManyToOne
-//    @Column(name = "user_id")
+    @ManyToOne(fetch = FetchType.LAZY)
     private UserDetail userDetail;
 
     public Phone() {

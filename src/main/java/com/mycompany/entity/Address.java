@@ -1,9 +1,9 @@
-
 package com.mycompany.entity;
 
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,7 +12,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "address")
 @NamedQueries({
@@ -20,7 +19,8 @@ import javax.persistence.Table;
     @NamedQuery(name = "Address.findByAddressId", query = "SELECT a FROM Address a WHERE a.addressId = :addressId"),
     @NamedQuery(name = "Address.findByCity", query = "SELECT a FROM Address a WHERE a.city = :city"),
     @NamedQuery(name = "Address.findByTown", query = "SELECT a FROM Address a WHERE a.town = :town"),
-    @NamedQuery(name = "Address.findByStreet", query = "SELECT a FROM Address a WHERE a.street = :street")})
+    @NamedQuery(name = "Address.findByStreet", query = "SELECT a FROM Address a WHERE a.street = :street"),
+    @NamedQuery(name = "Address.deleteAddressById", query = "delete from Address a where a.addressId= :id")})
 public class Address implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,7 +35,7 @@ public class Address implements Serializable {
     @Column(name = "street")
     private String street;
 
-    @OneToOne(mappedBy = "address")
+    @OneToOne(mappedBy = "address", fetch = FetchType.LAZY)
     private UserDetail userDetail;
 
     public Address() {

@@ -12,6 +12,7 @@ import java.util.Objects;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,10 +27,10 @@ public class Link implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ElementCollection
-    @CollectionTable(name = "user_link")
+    @CollectionTable(name = "userDetail_link")
     private List<String> linkName = new ArrayList<>();
-    
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private UserDetail userDetail;
 
     public Link() {
@@ -67,7 +68,7 @@ public class Link implements Serializable {
     public void setUserDetail(UserDetail userDetail) {
         this.userDetail = userDetail;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 7;

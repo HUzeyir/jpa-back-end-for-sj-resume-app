@@ -1,21 +1,25 @@
-
 package com.mycompany.entity;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Experience.getAllExperince", query = "select e from Experience e"),
+    @NamedQuery(name = "Experinece.findExperiencesByUserId", query = "select e from Experience e left join e.userDetail ud where ud.user.id= :id"),
+    @NamedQuery(name = "Experience.removeExperienceById", query = "delete from Experience e where e.id= :id")})
 public class Experience implements Serializable {
 
     private static final Long serialVersionUID = 1L;
@@ -32,10 +36,9 @@ public class Experience implements Serializable {
     private Date hireDate;
     @Temporal(TemporalType.DATE)
     private Date endDate;
-    
+
     private boolean isCurrentWork;
-    @ManyToOne
-//    @Column(name="user_detail_id")
+    @ManyToOne(fetch = FetchType.LAZY)
     private UserDetail userDetail;
 
     public Experience() {
@@ -134,6 +137,8 @@ public class Experience implements Serializable {
     public void setUserDetail(UserDetail userDetail) {
         this.userDetail = userDetail;
     }
+    
+    
 
     @Override
     public int hashCode() {
@@ -160,8 +165,6 @@ public class Experience implements Serializable {
         return true;
     }
 
-    
-    
     @Override
     public String toString() {
         return "Experience{" + "id=" + id + ", companyName=" + companyName + ", position=" + position + ", obligations=" + obligations + ", hireDate=" + hireDate + ", endDate=" + endDate + ", isCurrentWork=" + isCurrentWork + ", userDetail=" + userDetail + '}';

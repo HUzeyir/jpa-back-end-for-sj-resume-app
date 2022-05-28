@@ -1,4 +1,3 @@
-
 package com.mycompany.entity;
 
 import java.io.Serializable;
@@ -8,16 +7,19 @@ import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Education.getAllEducation", query = "select e from Education e")})
 public class Education implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -36,7 +38,7 @@ public class Education implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date graduatedDate;
 
-    @ManyToMany(mappedBy = "educations")
+    @ManyToMany(mappedBy = "educations", fetch = FetchType.LAZY)
     private List<UserDetail> userDetail = new ArrayList<>();
 
     public Education() {

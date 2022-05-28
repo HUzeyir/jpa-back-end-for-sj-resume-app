@@ -13,14 +13,17 @@ import java.util.List;
  */
 public interface AddressDaoInter {
 
-    public List<Address> address();
+    public List<Address> getAlladdress();
 
-    public boolean addAddress(Address address);
+    public Address addAddress(Address address);
 
-    public boolean deleteAddressById(int id);
+    public boolean deleteAddressById(Integer id);
+    
+    public Address deleteAddress(Address address);
 
-    public boolean updateAddress(Address address);
+    public Address updateAddress(Address address);
+    
+    Address getAddressById(Integer id);
 
-    public Address getAddressById(int id);
 
 }

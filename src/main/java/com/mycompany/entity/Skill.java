@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.mycompany.entity;
 
 import java.io.Serializable;
@@ -22,14 +18,11 @@ public class Skill implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "skill_id")
     private Short skilId;
     
-//    @Column(name="skill_name")
     private String skillName;
     
     @OneToOne
-//    @Column(name="user_skill_id")
     private UserSkill userSkill;
     
     

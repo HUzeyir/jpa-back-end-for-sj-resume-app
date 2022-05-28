@@ -1,28 +1,27 @@
 package com.mycompany.daoImpl;
 
-import com.mycompany.entity.Nationality;
-import com.mycompany.daoInter.NationalityDaoInter;
+import com.mycompany.daoInter.UserSkillDaoInter;
+import com.mycompany.entity.UserSkill;
 import com.mycompany.jpaFactory.JpaFactory;
 import java.util.List;
 import javax.persistence.RollbackException;
 
-public class NationalityDaoImpl extends JpaFactory implements NationalityDaoInter {
+public class UserSkillDaoImple extends JpaFactory implements UserSkillDaoInter {
 
     @Override
-    public List<Nationality> getAllNationality() {
-        System.out.println("not writed inside this method");
+    public List<UserSkill> getAllUserSkill() {
+        System.err.println("not writed inside this method, you can use logger instide it");
         return null;
     }
 
     @Override
-    public Nationality addNationality(final Nationality n) {
-
+    public UserSkill addUserSkill(UserSkill uskill) {
         try {
-            if (n != null) {
+            if (uskill != null) {
                 getManager().getTransaction().begin();
-                getManager().persist(n);
+                getManager().persist(uskill);
                 getManager().getTransaction().commit();
-                return n;
+                return uskill;
             }
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
@@ -36,13 +35,24 @@ public class NationalityDaoImpl extends JpaFactory implements NationalityDaoInte
     }
 
     @Override
-    public Nationality removeNationality(Nationality nat) {
+    public UserSkill findUserSkill(Integer id) {
         try {
-            if (nat != null) {
+            UserSkill lang = getManager().find(UserSkill.class, id);
+            return lang;
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public UserSkill updateUserSkill(UserSkill uskill) {
+        try {
+            if (uskill != null) {
                 getManager().getTransaction().begin();
-                getManager().remove(nat);
+                getManager().merge(uskill);
                 getManager().getTransaction().commit();
-                return nat;
+                return uskill;
             }
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
@@ -56,14 +66,13 @@ public class NationalityDaoImpl extends JpaFactory implements NationalityDaoInte
     }
 
     @Override
-    public Nationality updateNationality(Nationality n) {
-
+    public UserSkill removeUserSkill(UserSkill uskill) {
         try {
-            if (n != null) {
+            if (uskill != null) {
                 getManager().getTransaction().begin();
-                getManager().merge(n);
+                getManager().remove(uskill);
                 getManager().getTransaction().commit();
-                return n;
+                return uskill;
             }
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
@@ -72,18 +81,6 @@ public class NationalityDaoImpl extends JpaFactory implements NationalityDaoInte
             } catch (RollbackException e2) {
                 System.out.println(e2.getMessage());
             }
-        }
-        return null;
-    }
-
-    @Override
-    public Nationality getNationalityById(int id) {
-
-        try {
-            Nationality nat = getManager().find(Nationality.class, id);
-            return nat;
-        } catch (RuntimeException e) {
-            System.out.println(e.getMessage());
         }
         return null;
     }

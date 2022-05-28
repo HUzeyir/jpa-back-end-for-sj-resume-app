@@ -2,20 +2,18 @@ package com.mycompany.main;
 
 import com.mycompany.entity.Skill;
 import com.mycompany.entity.UserDetail;
-import com.mycompany.daoImpl.AbstractDao;
-import com.mycompany.daoInter.UserDaoInter;
+import com.mycompany.jpaFactory.JpaFactory;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
-public class Main extends AbstractDao {
+public class Main{
 
     public static void main(String[] args) {
-
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("pu");
+        
+        JpaFactory factory=new JpaFactory() {
+        };
 
     }
 

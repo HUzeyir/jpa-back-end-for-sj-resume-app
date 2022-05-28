@@ -1,36 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package com.mycompany.daoInter;
 
-import com.mycompany.entity.UserDetail;
+import com.mycompany.entity.User;
 import java.util.List;
 
-/**
- *
- * @author admin
- */
 public interface UserDaoInter {
 
-    void addUser(UserDetail u);
+    List<User> getAllUser();
 
-    void addBatchUser(List<UserDetail> users);
+    User addUser(User user);
 
-    boolean updateUser(UserDetail u);
+    User findUser(Integer id);
 
-    boolean deleteUser(int id);
-    
-     public UserDetail serchUserByEmailAndPassword(String email, String password);
+    User updateUser(User user);
 
-    UserDetail getUserbyId(int id);
+    User removeUser(User user);
 
-    UserDetail serchUserByEmail(String email);
+    User findUserFullById(Integer id);
 
-    List<UserDetail> serchUsersByName(String name);
-
-    List<UserDetail> serchUsersByNameAndSurname(String name, String surName);
-
-    List<UserDetail> getAllUsers();
+    User findUserByEmail(String email);
 
 }

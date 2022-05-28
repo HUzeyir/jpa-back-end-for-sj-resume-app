@@ -1,43 +1,43 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.entity;
 
 import com.mycompany.entity.util.LanguageLevel;
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Language.findAllLanguage", query = "select l from Language l")})
 public class Language implements Serializable {
 
     private static final Long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Short id;
 
     @ElementCollection
-    @CollectionTable(name = "user_language")
+    @CollectionTable(name = "userDetail_language")
     @MapKeyColumn(name = "laguage_level")
+    @Column(name = "languae")
+    @JoinColumn(name = "language_id")
     private Map<LanguageLevel, String> languages = new HashMap<>();
 
-    @ManyToOne
-//    @Column(name = "user_id")
+    @ManyToOne(fetch = FetchType.LAZY)
     private UserDetail userDetail;
 
     public Language() {

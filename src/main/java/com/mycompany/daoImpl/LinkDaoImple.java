@@ -1,28 +1,21 @@
 package com.mycompany.daoImpl;
 
-import com.mycompany.entity.Nationality;
-import com.mycompany.daoInter.NationalityDaoInter;
+import com.mycompany.daoInter.LinkDaoInter;
+import com.mycompany.entity.Link;
 import com.mycompany.jpaFactory.JpaFactory;
-import java.util.List;
 import javax.persistence.RollbackException;
 
-public class NationalityDaoImpl extends JpaFactory implements NationalityDaoInter {
+public class LinkDaoImple extends JpaFactory implements LinkDaoInter {
 
     @Override
-    public List<Nationality> getAllNationality() {
-        System.out.println("not writed inside this method");
-        return null;
-    }
-
-    @Override
-    public Nationality addNationality(final Nationality n) {
+    public Link addLink(Link link) {
 
         try {
-            if (n != null) {
+            if (link != null) {
                 getManager().getTransaction().begin();
-                getManager().persist(n);
+                getManager().persist(link);
                 getManager().getTransaction().commit();
-                return n;
+                return link;
             }
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
@@ -36,13 +29,26 @@ public class NationalityDaoImpl extends JpaFactory implements NationalityDaoInte
     }
 
     @Override
-    public Nationality removeNationality(Nationality nat) {
+    public Link findLink(Integer id) {
+
         try {
-            if (nat != null) {
+            Link lang = getManager().find(Link.class, id);
+            return lang;
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public Link updateLink(Link link) {
+
+        try {
+            if (link != null) {
                 getManager().getTransaction().begin();
-                getManager().remove(nat);
+                getManager().merge(link);
                 getManager().getTransaction().commit();
-                return nat;
+                return link;
             }
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
@@ -56,14 +62,14 @@ public class NationalityDaoImpl extends JpaFactory implements NationalityDaoInte
     }
 
     @Override
-    public Nationality updateNationality(Nationality n) {
+    public Link removeLink(Link link) {
 
         try {
-            if (n != null) {
+            if (link != null) {
                 getManager().getTransaction().begin();
-                getManager().merge(n);
+                getManager().remove(link);
                 getManager().getTransaction().commit();
-                return n;
+                return link;
             }
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
@@ -72,18 +78,6 @@ public class NationalityDaoImpl extends JpaFactory implements NationalityDaoInte
             } catch (RollbackException e2) {
                 System.out.println(e2.getMessage());
             }
-        }
-        return null;
-    }
-
-    @Override
-    public Nationality getNationalityById(int id) {
-
-        try {
-            Nationality nat = getManager().find(Nationality.class, id);
-            return nat;
-        } catch (RuntimeException e) {
-            System.out.println(e.getMessage());
         }
         return null;
     }

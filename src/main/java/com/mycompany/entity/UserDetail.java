@@ -57,7 +57,7 @@ public class UserDetail implements Serializable {
     @OneToMany(mappedBy = "userDetail", fetch = FetchType.LAZY)
     private List<Nationality> naties = new ArrayList<>();
 
-    @OneToMany(mappedBy = "userDetail", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "userDetail", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Phone> phones = new ArrayList<>();
 
     @OneToOne(mappedBy = "userDetail")

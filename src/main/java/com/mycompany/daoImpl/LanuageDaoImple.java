@@ -1,28 +1,36 @@
 package com.mycompany.daoImpl;
 
-import com.mycompany.daoInter.UserDaoInter;
-import com.mycompany.entity.User;
+import com.mycompany.daoInter.LanguageDaoInter;
+import com.mycompany.entity.Language;
 import com.mycompany.jpaFactory.JpaFactory;
 import java.util.List;
 import javax.persistence.Query;
 import javax.persistence.RollbackException;
+import javax.persistence.TypedQuery;
 
-public class UserDaoImpl extends JpaFactory implements UserDaoInter {
+public class LanuageDaoImple extends JpaFactory implements LanguageDaoInter {
 
     @Override
-    public List<User> getAllUser() {
-        Query query = getManager().createNamedQuery("User.findAllUser");
-        return query.getResultList();
+    public List<Language> getAllLanguage() {
+
+        try {
+            Query query = getManager().createNamedQuery("Language.findAllLanguage");
+            return query.getResultList();
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 
     @Override
-    public User addUser(final User user) {
+    public Language addLanguage(Language lang) {
+
         try {
-            if (user != null) {
+            if (lang != null) {
                 getManager().getTransaction().begin();
-                getManager().persist(user);
+                getManager().persist(lang);
                 getManager().getTransaction().commit();
-                return user;
+                return lang;
             }
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
@@ -36,24 +44,27 @@ public class UserDaoImpl extends JpaFactory implements UserDaoInter {
     }
 
     @Override
-    public User findUser(Integer id) {
+    public Language findLanguage(Integer id) {
         try {
-            User lang = getManager().find(User.class, id);
+
+            Language lang = getManager().find(Language.class, id);
             return lang;
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
         }
         return null;
+
     }
 
     @Override
-    public User updateUser(User user) {
+    public Language updateLanguage(Language lang) {
+
         try {
-            if (user != null) {
+            if (lang != null) {
                 getManager().getTransaction().begin();
-                getManager().merge(user);
+                getManager().merge(lang);
                 getManager().getTransaction().commit();
-                return user;
+                return lang;
             }
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
@@ -67,13 +78,14 @@ public class UserDaoImpl extends JpaFactory implements UserDaoInter {
     }
 
     @Override
-    public User removeUser(User user) {
+    public Language removeLanguage(Language lang) {
+
         try {
-            if (user != null) {
+            if (lang != null) {
                 getManager().getTransaction().begin();
-                getManager().remove(user);
+                getManager().remove(lang);
                 getManager().getTransaction().commit();
-                return user;
+                return lang;
             }
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
@@ -84,23 +96,7 @@ public class UserDaoImpl extends JpaFactory implements UserDaoInter {
             }
         }
         return null;
-    }
 
-    @Override
-    public User findUserFullById(Integer id) {
-        Query query = getManager().createNamedQuery("User.findUserFullById");
-        query.setParameter("id", id);
-        return (User) query.getSingleResult();
     }
-
-    @Override
-    public User findUserByEmail(String email) {
-        
-         Query query = getManager().createNamedQuery("User.findUserFullById");
-        query.setParameter("email", email);
-        return (User) query.getSingleResult();
-    }
-    
-    
 
 }

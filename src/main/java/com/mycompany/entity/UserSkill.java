@@ -1,10 +1,7 @@
 package com.mycompany.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,7 +20,6 @@ public class UserSkill implements Serializable {
     private byte power;
 
     @OneToOne(mappedBy = "userSkill")
-//    @Column(name = "skill_id")
     private Skill skill;
 
     @ManyToOne

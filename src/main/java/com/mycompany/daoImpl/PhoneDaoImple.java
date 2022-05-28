@@ -1,28 +1,29 @@
+
 package com.mycompany.daoImpl;
 
-import com.mycompany.entity.Nationality;
-import com.mycompany.daoInter.NationalityDaoInter;
+import com.mycompany.daoInter.PhoneDaoInter;
+import com.mycompany.entity.Phone;
 import com.mycompany.jpaFactory.JpaFactory;
 import java.util.List;
 import javax.persistence.RollbackException;
 
-public class NationalityDaoImpl extends JpaFactory implements NationalityDaoInter {
+
+public class PhoneDaoImple extends JpaFactory implements PhoneDaoInter {
 
     @Override
-    public List<Nationality> getAllNationality() {
-        System.out.println("not writed inside this method");
+    public List<Phone> getAllPhone() {
+        System.err.println("not writed inside this method, you can use logger instide it");
         return null;
     }
 
     @Override
-    public Nationality addNationality(final Nationality n) {
-
+    public Phone addPhone(Phone phone) {
         try {
-            if (n != null) {
+            if (phone != null) {
                 getManager().getTransaction().begin();
-                getManager().persist(n);
+                getManager().persist(phone);
                 getManager().getTransaction().commit();
-                return n;
+                return phone;
             }
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
@@ -36,13 +37,26 @@ public class NationalityDaoImpl extends JpaFactory implements NationalityDaoInte
     }
 
     @Override
-    public Nationality removeNationality(Nationality nat) {
+    public Phone findPhone(Integer id) {
+
         try {
-            if (nat != null) {
+            Phone lang = getManager().find(Phone.class, id);
+            return lang;
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public Phone updatePhone(Phone phone) {
+
+        try {
+            if (phone != null) {
                 getManager().getTransaction().begin();
-                getManager().remove(nat);
+                getManager().merge(phone);
                 getManager().getTransaction().commit();
-                return nat;
+                return phone;
             }
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
@@ -56,14 +70,14 @@ public class NationalityDaoImpl extends JpaFactory implements NationalityDaoInte
     }
 
     @Override
-    public Nationality updateNationality(Nationality n) {
+    public Phone removePhone(Phone phone) {
 
         try {
-            if (n != null) {
+            if (phone != null) {
                 getManager().getTransaction().begin();
-                getManager().merge(n);
+                getManager().remove(phone);
                 getManager().getTransaction().commit();
-                return n;
+                return phone;
             }
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
@@ -72,18 +86,6 @@ public class NationalityDaoImpl extends JpaFactory implements NationalityDaoInte
             } catch (RollbackException e2) {
                 System.out.println(e2.getMessage());
             }
-        }
-        return null;
-    }
-
-    @Override
-    public Nationality getNationalityById(int id) {
-
-        try {
-            Nationality nat = getManager().find(Nationality.class, id);
-            return nat;
-        } catch (RuntimeException e) {
-            System.out.println(e.getMessage());
         }
         return null;
     }

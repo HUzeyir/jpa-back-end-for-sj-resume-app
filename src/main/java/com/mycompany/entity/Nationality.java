@@ -9,15 +9,12 @@ import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-/**
- *
- * @author HuzeyirPc
- */
 @Entity
 public class Nationality implements Serializable {
 
@@ -27,7 +24,7 @@ public class Nationality implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Short id;
     private String countryName;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private UserDetail userDetail;
 
     public Nationality() {

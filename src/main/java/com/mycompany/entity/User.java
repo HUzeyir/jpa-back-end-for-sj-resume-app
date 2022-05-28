@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.entity;
 
 import java.io.Serializable;
@@ -14,16 +9,24 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "User.findAllUser", query = "select u from User u"),
+    @NamedQuery(name = "User.findUserById", query = "select u from User u where u.id= :id"),
+    @NamedQuery(name = "User.findUserFullById", query = "select u from User u left join u.userDetail ud left join ud.address a left join ud.educations e"
+            + " left join ud.experience ex left join ud.languages lan left join ud.links l left join ud.naties nat left join ud.phones p "
+            + "left join ud.userSkills us left join us.skill s where u.id= :id"),
+    @NamedQuery(name = "User.findUserByEmail", query = " select u from User u where u.email= :email")})
 public class User implements Serializable {
 
     private static final Long serialVersionUID = 1L;
-    
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -34,12 +37,12 @@ public class User implements Serializable {
     private String email;
     private String password;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    @Column(name = "user_detail_id")
     private UserDetail userDetail;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date addDate = new Date();
 
+    @Temporal(TemporalType.TIMESTAMP)
     private Date updateDate;
 
     public User() {
