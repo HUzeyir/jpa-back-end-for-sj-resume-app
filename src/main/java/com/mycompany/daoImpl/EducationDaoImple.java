@@ -47,7 +47,6 @@ public class EducationDaoImple extends JpaFactory implements EducationDaoInter {
         return null;
     }
 
-
     @Override
     public Education findEducationById(Integer id) {
 
@@ -67,7 +66,7 @@ public class EducationDaoImple extends JpaFactory implements EducationDaoInter {
     public Education removeEducatin(Education education) {
 
         try {
-           if (education != null) {
+            if (education != null) {
                 int id = education.getId();
                 Education edu = findEducationById(new Integer(id));
                 getManager().remove(edu);
@@ -92,6 +91,7 @@ public class EducationDaoImple extends JpaFactory implements EducationDaoInter {
             try {
                 getManager().getTransaction().begin();
                 getManager().merge(education);
+                getManager().flush();
                 getManager().getTransaction().commit();
                 return education;
             } catch (RuntimeException e) {

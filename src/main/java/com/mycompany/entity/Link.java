@@ -17,6 +17,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Link implements Serializable {
@@ -30,7 +31,7 @@ public class Link implements Serializable {
     @CollectionTable(name = "userDetail_link")
     private List<String> linkName = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "link")
     private UserDetail userDetail;
 
     public Link() {

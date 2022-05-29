@@ -30,6 +30,7 @@ public class SkillDaoImpl extends JpaFactory implements SkillDaoInter {
 
     @Override
     public List<Skill> addSkillsBatch(final List<Skill> skill) {
+        
         System.err.println("not writed inside this method, you can use logger instide it");
         return null;
     }
@@ -40,6 +41,7 @@ public class SkillDaoImpl extends JpaFactory implements SkillDaoInter {
             if (skill != null) {
                 getManager().getTransaction().begin();
                 getManager().merge(skill);
+                getManager().flush();
                 getManager().getTransaction().commit();
                 return skill;
             }
@@ -63,7 +65,7 @@ public class SkillDaoImpl extends JpaFactory implements SkillDaoInter {
     @Override
     public Skill getSkillById(final int id) {
         try {
-            Skill lang = getManager().find(Skill.class, id);
+            Skill lang = getManager().find(Skill.class, (short)id);
             return lang;
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());

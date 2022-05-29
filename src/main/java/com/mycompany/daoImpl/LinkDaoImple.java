@@ -47,6 +47,7 @@ public class LinkDaoImple extends JpaFactory implements LinkDaoInter {
             if (link != null) {
                 getManager().getTransaction().begin();
                 getManager().merge(link);
+                getManager().flush();
                 getManager().getTransaction().commit();
                 return link;
             }

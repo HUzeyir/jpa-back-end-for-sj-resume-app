@@ -22,7 +22,7 @@ public class Skill implements Serializable {
     
     private String skillName;
     
-    @OneToOne
+    @OneToOne(mappedBy = "skill")
     private UserSkill userSkill;
     
     
@@ -81,7 +81,7 @@ public class Skill implements Serializable {
 
     @Override
     public String toString() {
-        return "Skill:/n skilId: " + skilId + ", skillName: " + skillName;
+        return "\nskillName: " + skillName;
     }
 
 }

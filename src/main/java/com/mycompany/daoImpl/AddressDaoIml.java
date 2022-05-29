@@ -56,6 +56,7 @@ public class AddressDaoIml extends JpaFactory implements AddressDaoInter {
             if (address != null) {
                 getManager().getTransaction().begin();
                 getManager().merge(address);
+                getManager().flush();
                 getManager().getTransaction().commit();
                 return address;
             }

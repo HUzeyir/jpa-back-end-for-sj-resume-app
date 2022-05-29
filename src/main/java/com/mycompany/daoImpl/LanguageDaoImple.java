@@ -8,7 +8,7 @@ import javax.persistence.Query;
 import javax.persistence.RollbackException;
 import javax.persistence.TypedQuery;
 
-public class LanuageDaoImple extends JpaFactory implements LanguageDaoInter {
+public class LanguageDaoImple extends JpaFactory implements LanguageDaoInter {
 
     @Override
     public List<Language> getAllLanguage() {
@@ -63,6 +63,7 @@ public class LanuageDaoImple extends JpaFactory implements LanguageDaoInter {
             if (lang != null) {
                 getManager().getTransaction().begin();
                 getManager().merge(lang);
+                getManager().flush();
                 getManager().getTransaction().commit();
                 return lang;
             }

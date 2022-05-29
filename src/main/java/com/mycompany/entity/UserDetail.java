@@ -35,7 +35,9 @@ public class UserDetail implements Serializable {
 
     @Temporal(TemporalType.DATE)
     private Date age;
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date addDate = new Date();
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date updateDate;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -51,14 +53,14 @@ public class UserDetail implements Serializable {
     @OneToMany(mappedBy = "userDetail", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Language> languages = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userDetail", fetch = FetchType.LAZY)
-    private List<Link> links = new ArrayList<>();
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Link link;
 
     @OneToMany(mappedBy = "userDetail", fetch = FetchType.LAZY)
     private List<Nationality> naties = new ArrayList<>();
 
-    @OneToMany(mappedBy = "userDetail", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Phone> phones = new ArrayList<>();
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Phone phone;
 
     @OneToOne(mappedBy = "userDetail")
     private User user;
@@ -84,6 +86,11 @@ public class UserDetail implements Serializable {
         this.user = user;
     }
 
+    public UserDetail(String about, Date age) {
+        this.about = about;
+        this.age = age;
+    }
+
     public Long getId() {
         return id;
     }
@@ -92,10 +99,19 @@ public class UserDetail implements Serializable {
         return image;
     }
 
+    public Phone getPhone() {
+        return phone;
+    }
+
+    public void setPhone(Phone phone) {
+        this.phone = phone;
+    }
+
+    
     public void setImage(String image) {
         this.image = image;
     }
-    
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -164,12 +180,12 @@ public class UserDetail implements Serializable {
         this.languages = languages;
     }
 
-    public List<Link> getLinks() {
-        return links;
+    public Link getLinks() {
+        return link;
     }
 
-    public void setLinks(List<Link> links) {
-        this.links = links;
+    public void setLinks(Link link) {
+        this.link = link;
     }
 
     public List<Nationality> getNaties() {
@@ -178,14 +194,6 @@ public class UserDetail implements Serializable {
 
     public void setNaties(List<Nationality> naties) {
         this.naties = naties;
-    }
-
-    public List<Phone> getPhones() {
-        return phones;
-    }
-
-    public void setPhones(List<Phone> phones) {
-        this.phones = phones;
     }
 
     public User getUser() {
@@ -202,6 +210,10 @@ public class UserDetail implements Serializable {
 
     public void setUserSkills(List<UserSkill> userSkills) {
         this.userSkills = userSkills;
+    }
+
+    public void addUserSkill(UserSkill us) {
+        this.userSkills.add(us);
     }
 
     @Override
@@ -231,7 +243,7 @@ public class UserDetail implements Serializable {
 
     @Override
     public String toString() {
-        return "UserDetail{" + "id=" + id + ", about=" + about + ", age=" + age + ", addDate=" + addDate + ", updateDate=" + updateDate + ", address=" + address + ", educations=" + educations + ", experience=" + experience + ", languages=" + languages + ", links=" + links + ", naties=" + naties + ", phones=" + phones + ", user=" + user + ", userSkills=" + userSkills + '}';
-    }
+        return "UserDetail: " + "\n id: " + id + "\n about: " + about + "\n age: " + age + "\n addDate: " + addDate + "\n updateDate: " + updateDate;
 
+    }
 }

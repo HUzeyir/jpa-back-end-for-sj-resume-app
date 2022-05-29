@@ -37,7 +37,7 @@ public class UserSkillDaoImple extends JpaFactory implements UserSkillDaoInter {
     @Override
     public UserSkill findUserSkill(Integer id) {
         try {
-            UserSkill lang = getManager().find(UserSkill.class, id);
+            UserSkill lang = getManager().find(UserSkill.class, id.longValue());
             return lang;
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
@@ -51,6 +51,7 @@ public class UserSkillDaoImple extends JpaFactory implements UserSkillDaoInter {
             if (uskill != null) {
                 getManager().getTransaction().begin();
                 getManager().merge(uskill);
+                getManager().flush();
                 getManager().getTransaction().commit();
                 return uskill;
             }

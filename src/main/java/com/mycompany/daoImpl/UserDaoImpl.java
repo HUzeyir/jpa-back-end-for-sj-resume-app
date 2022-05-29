@@ -38,7 +38,7 @@ public class UserDaoImpl extends JpaFactory implements UserDaoInter {
     @Override
     public User findUser(Integer id) {
         try {
-            User lang = getManager().find(User.class, id);
+            User lang = getManager().find(User.class, id.longValue());
             return lang;
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
@@ -52,6 +52,7 @@ public class UserDaoImpl extends JpaFactory implements UserDaoInter {
             if (user != null) {
                 getManager().getTransaction().begin();
                 getManager().merge(user);
+                getManager().flush();
                 getManager().getTransaction().commit();
                 return user;
             }
@@ -95,12 +96,10 @@ public class UserDaoImpl extends JpaFactory implements UserDaoInter {
 
     @Override
     public User findUserByEmail(String email) {
-        
-         Query query = getManager().createNamedQuery("User.findUserFullById");
+
+        Query query = getManager().createNamedQuery("User.findUserFullById");
         query.setParameter("email", email);
         return (User) query.getSingleResult();
     }
-    
-    
 
 }

@@ -42,8 +42,6 @@ public class ExperienceDaoImple extends JpaFactory implements ExperienceDaoInter
         return null;
     }
 
-  
-
     @Override
     public List<Experience> getExperienceByUserId(Integer id) {
 
@@ -77,6 +75,7 @@ public class ExperienceDaoImple extends JpaFactory implements ExperienceDaoInter
             if (experience != null) {
                 getManager().getTransaction().begin();
                 getManager().merge(experience);
+                getManager().flush();
                 getManager().getTransaction().commit();
                 return experience;
             }

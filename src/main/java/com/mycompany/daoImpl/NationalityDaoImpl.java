@@ -62,6 +62,7 @@ public class NationalityDaoImpl extends JpaFactory implements NationalityDaoInte
             if (n != null) {
                 getManager().getTransaction().begin();
                 getManager().merge(n);
+                getManager().flush();
                 getManager().getTransaction().commit();
                 return n;
             }

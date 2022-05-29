@@ -1,4 +1,3 @@
-
 package com.mycompany.daoImpl;
 
 import com.mycompany.daoInter.PhoneDaoInter;
@@ -6,7 +5,6 @@ import com.mycompany.entity.Phone;
 import com.mycompany.jpaFactory.JpaFactory;
 import java.util.List;
 import javax.persistence.RollbackException;
-
 
 public class PhoneDaoImple extends JpaFactory implements PhoneDaoInter {
 
@@ -55,6 +53,7 @@ public class PhoneDaoImple extends JpaFactory implements PhoneDaoInter {
             if (phone != null) {
                 getManager().getTransaction().begin();
                 getManager().merge(phone);
+                getManager().flush();
                 getManager().getTransaction().commit();
                 return phone;
             }

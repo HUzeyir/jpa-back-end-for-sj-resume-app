@@ -6,9 +6,9 @@ import com.mycompany.jpaFactory.JpaFactory;
 import java.util.List;
 import javax.persistence.RollbackException;
 
-public class UserDetailDaoImple extends JpaFactory implements UserDetailDaoInter{
+public class UserDetailDaoImple extends JpaFactory implements UserDetailDaoInter {
 
-   @Override
+    @Override
     public List<UserDetail> getAllUserDetail() {
         System.err.println("not writed inside this method, you can use logger instide it");
         return null;
@@ -38,7 +38,7 @@ public class UserDetailDaoImple extends JpaFactory implements UserDetailDaoInter
     @Override
     public UserDetail findUserDetail(Integer id) {
         try {
-            UserDetail lang = getManager().find(UserDetail.class, id);
+            UserDetail lang = getManager().find(UserDetail.class, id.longValue());
             return lang;
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
@@ -52,6 +52,7 @@ public class UserDetailDaoImple extends JpaFactory implements UserDetailDaoInter
             if (udetail != null) {
                 getManager().getTransaction().begin();
                 getManager().merge(udetail);
+                getManager().flush();
                 getManager().getTransaction().commit();
                 return udetail;
             }
@@ -85,5 +86,5 @@ public class UserDetailDaoImple extends JpaFactory implements UserDetailDaoInter
         }
         return null;
     }
-  
+
 }

@@ -13,8 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Phone implements Serializable {
@@ -30,7 +30,7 @@ public class Phone implements Serializable {
     @Column(name="number")
     @MapKeyColumn(name="phone_type")
     private Map<PhoneType, String> number = new HashMap<>();
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "phone")
     private UserDetail userDetail;
 
     public Phone() {

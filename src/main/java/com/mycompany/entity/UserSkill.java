@@ -19,7 +19,7 @@ public class UserSkill implements Serializable {
     private Long id;
     private byte power;
 
-    @OneToOne(mappedBy = "userSkill")
+    @OneToOne
     private Skill skill;
 
     @ManyToOne
@@ -35,6 +35,12 @@ public class UserSkill implements Serializable {
         this.userDetail = userDetail;
     }
 
+    public UserSkill(byte power, Skill skill) {
+        this.power = power;
+        this.skill = skill;
+    }
+
+    
     public UserSkill(byte power, Skill skill, UserDetail userDetail) {
         this.power = power;
         this.skill = skill;
