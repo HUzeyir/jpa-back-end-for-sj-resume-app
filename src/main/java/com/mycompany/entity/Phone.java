@@ -23,7 +23,7 @@ public class Phone implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private byte id;
+    private Short id;
     @ElementCollection
     @CollectionTable(name = "userDetail_phone")
     @JoinColumn(name = "phone_id")
@@ -36,7 +36,7 @@ public class Phone implements Serializable {
     public Phone() {
     }
 
-    public Phone(byte id, UserDetail userDetail) {
+    public Phone(Short id, UserDetail userDetail) {
         this.id = id;
         this.userDetail = userDetail;
     }
@@ -45,11 +45,11 @@ public class Phone implements Serializable {
         this.number.put(phoneType, numb);
     }
 
-    public byte getId() {
+    public Short getId() {
         return id;
     }
 
-    public void setId(byte id) {
+    public void setId(Short id) {
         this.id = id;
     }
 

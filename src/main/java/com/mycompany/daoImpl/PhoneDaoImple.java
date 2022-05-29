@@ -38,7 +38,7 @@ public class PhoneDaoImple extends JpaFactory implements PhoneDaoInter {
     public Phone findPhone(Integer id) {
 
         try {
-            Phone lang = getManager().find(Phone.class, id);
+            Phone lang = getManager().find(Phone.class, id.shortValue());
             return lang;
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());

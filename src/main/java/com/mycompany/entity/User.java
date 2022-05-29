@@ -20,7 +20,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "User.findAllUser", query = "select u from User u"),
     @NamedQuery(name = "User.findUserById", query = "select u from User u where u.id= :id"),
     @NamedQuery(name = "User.findUserFullById", query = "select u from User u left join u.userDetail ud left join ud.address a left join ud.educations e"
-            + " left join ud.experience ex left join ud.languages lan left join ud.link l left join ud.naties nat left join ud.phone p "
+            + " left join ud.experience ex left join ud.language lan left join ud.link l left join ud.naties nat left join ud.phone p "
             + "left join ud.userSkills us left join us.skill s where u.id= :id"),
     @NamedQuery(name = "User.findUserByEmail", query = " select u from User u where u.email= :email")})
 public class User implements Serializable {

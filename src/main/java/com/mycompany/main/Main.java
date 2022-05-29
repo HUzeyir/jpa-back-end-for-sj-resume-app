@@ -23,24 +23,25 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        JpaFactory f=new JpaFactory() {};
+//        JpaFactory f=new JpaFactory() {};
 //        setSkilsToDB();
-//        UserService userService = new UserServiceImpl();
+        UserService userService = new UserServiceImpl();
 //        User user = new User("Uzeyir", "Huseynov", "huseynoow@gmail.com", "6119845u");
 //        userService.addUser(user);
-//        UserDetailService udService = new UserDetailServiceImpl();
-
+        UserDetailService udService = new UserDetailServiceImpl();
+//
 //        UserDetail ud = new UserDetail("i am a junior java developer, but not i am strong on this, something getting wrong some time", customDate(1990, 02, 10));
-//        User user = userService.findUser(1);
-//        user.setUserDetail(ud);
-//        userService.updateUser(user);
+//        User user2 = userService.findUser(1);
+//        user2.setUserDetail(ud);
+//        userService.updateUser(user2);
 //        Education edu = new Education("Bdu", "Geology", "faydali qazinti yataqlarinin axtarisi ve kesfiyyati", customDate(2007, 06, 05), customDate(2011, 6, 6));
-//        UserDetail ud = udService.findUserDetail(1);
+        UserDetail ud = udService.findUserDetail(1);
 //        ud.addEducation(edu);
 //        udService.updateUserDetail(ud);
 //        System.out.println(ud);
@@ -76,13 +77,16 @@ public class Main {
 //        uskilService.updateUserSkill(userSkill3);
 //        uskilService.updateUserSkill(userSkill4);
 //        uskilService.updateUserSkill(userSkill5);
-//        User user = userService.findUser(1);
-//        System.out.println(user+"\n");
-//        UserDetail ud = user.getUserDetail();
-//        System.out.println(ud+"\n");
-//        
-//        List<UserSkill> us = ud.getUserSkills();
-//        us.forEach(System.out::println);
+        User user = userService.findUser(1);
+        System.out.println(user + "\n");
+        UserDetail ud2 = user.getUserDetail();
+        System.out.println(ud2 + "\n");
+
+        Map phone = ud.getPhone().getNumber();
+        phone.values().forEach(System.out::println);
+        List<UserSkill> us = ud2.getUserSkills();
+        us.forEach(System.out::println);
+
 //        Phone phone = new Phone();
 //        phone.addNumber(PhoneType.MOBILE, "055 611 98 45");
 //        phone.addNumber(PhoneType.MOBILE, "055 292 11 42");
@@ -90,7 +94,8 @@ public class Main {
 //
 //        PhoneService ps = new PhoneServiceImpl();
 //        ps.addPhone(phone);
-
+//        ud.setPhone(phone);
+//        udService.updateUserDetail(ud);
     }
 
     public static void setSkilsToDB() {

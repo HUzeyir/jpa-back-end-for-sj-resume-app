@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.mycompany.entity;
 
 import java.io.Serializable;
@@ -16,7 +12,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -26,7 +21,7 @@ public class Link implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Short id;
     @ElementCollection
     @CollectionTable(name = "userDetail_link")
     private List<String> linkName = new ArrayList<>();
@@ -37,7 +32,7 @@ public class Link implements Serializable {
     public Link() {
     }
 
-    public Link(Long id, User user) {
+    public Link(Short id, User user) {
         this.id = id;
         this.userDetail = userDetail;
     }
@@ -46,11 +41,11 @@ public class Link implements Serializable {
         this.linkName.add(link);
     }
 
-    public Long getId() {
+    public Short getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Short id) {
         this.id = id;
     }
 

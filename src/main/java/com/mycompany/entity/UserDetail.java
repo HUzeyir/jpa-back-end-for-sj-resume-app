@@ -50,8 +50,8 @@ public class UserDetail implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userDetail", fetch = FetchType.LAZY)
     private List<Experience> experience = new ArrayList<>();
 
-    @OneToMany(mappedBy = "userDetail", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Language> languages = new ArrayList<>();
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Language language;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Link link;
@@ -107,7 +107,6 @@ public class UserDetail implements Serializable {
         this.phone = phone;
     }
 
-    
     public void setImage(String image) {
         this.image = image;
     }
@@ -172,12 +171,12 @@ public class UserDetail implements Serializable {
         this.experience = experience;
     }
 
-    public List<Language> getLanguages() {
-        return languages;
+    public Language getLanguage() {
+        return language;
     }
 
-    public void setLanguages(List<Language> languages) {
-        this.languages = languages;
+    public void setLanguages(Language language) {
+        this.language = language;
     }
 
     public Link getLinks() {

@@ -32,7 +32,7 @@ public class LinkDaoImple extends JpaFactory implements LinkDaoInter {
     public Link findLink(Integer id) {
 
         try {
-            Link lang = getManager().find(Link.class, id);
+            Link lang = getManager().find(Link.class, id.shortValue());
             return lang;
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
