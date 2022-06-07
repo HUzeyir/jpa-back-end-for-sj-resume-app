@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Configuration>
+    
+    <!--It is for rolling file. You can write a lot of property with different location-->
+    <Properties>  
+        <Property name="path"> C:/Users/user/Desktop/logs for web-app/ </Property>
+    </Properties>
+    
+    <Appenders>
+        <!--console scope-->
+        <Console name="console" target="SYSTEM.OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+        <!--file scope-->
+        <File name="myFile" fileName="C:/Users/user/Desktop/logs for web-app/web-app all logs.txt">
+            <PatternLayout pattern="%-4r %d{${datestamp}} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+        <!--with seperate file scope-->               
+        <RollingFile name="rolling" fileName="${path}web-app-Loglama.log" filePattern="${path}.%i.log" immediateFlush="true">
+            <PatternLayout pattern=" %-5level %d{HH:mm:ss.SSS} [%t]  %logger{36} (%F:%L) %msg%n"/>
+            <!--  log faylinin hecmi  -->
+            <Policies>
+                <SizeBasedTriggeringPolicy size="2000KB" />
+            </Policies>
+            <!--  eger hedden artiq yuklenme olarsa yaradiacaq elave fayllarin sayi  -->
+            <DefaultRolloverStrategy max="10" />
+        </RollingFile>
+    </Appenders>
+  
+    <Loggers>
+        <logger name="com.mycompany" level="info" additivity="false">
+<!--            <Root level="error">
+                <AppenderRef ref="Console"/>
+            </Root>-->
+            <AppenderRef ref="console"/>
+            <AppenderRef ref="myFile"/>
+            <AppenderRef ref="rolling"/>
+        </logger>
+        
+        <logger name="com.myCompany" level="info" additivity="false">
+            <AppenderRef ref="console2"/>
+        </logger>
+    </Loggers>
+</Configuration>

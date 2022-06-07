@@ -5,12 +5,16 @@ import com.mycompany.entity.UserDetail;
 import com.mycompany.jpaFactory.JpaFactory;
 import java.util.List;
 import javax.persistence.RollbackException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class UserDetailDaoImple extends JpaFactory implements UserDetailDaoInter {
 
+    private Logger log = LogManager.getLogger();
+
     @Override
     public List<UserDetail> getAllUserDetail() {
-        System.err.println("not writed inside this method, you can use logger instide it");
+        log.warn("not writed inside this method!!!");
         return null;
     }
 
@@ -22,14 +26,15 @@ public class UserDetailDaoImple extends JpaFactory implements UserDetailDaoInter
                 getManager().getTransaction().begin();
                 getManager().persist(udetail);
                 getManager().getTransaction().commit();
+                getManager().close();
                 return udetail;
             }
         } catch (RuntimeException e) {
-            System.out.println(e.getMessage());
+            log.error(e.getMessage());
             try {
                 getManager().getTransaction().rollback();
             } catch (RollbackException e2) {
-                System.out.println(e2.getMessage());
+                log.error(e2.getMessage());
             }
         }
         return null;
@@ -39,9 +44,11 @@ public class UserDetailDaoImple extends JpaFactory implements UserDetailDaoInter
     public UserDetail findUserDetail(Integer id) {
         try {
             UserDetail lang = getManager().find(UserDetail.class, id.longValue());
+            log.info("user detail found with this id: " + id);
+            getManager().close();
             return lang;
         } catch (RuntimeException e) {
-            System.out.println(e.getMessage());
+            log.error(e.getMessage());
         }
         return null;
     }
@@ -54,14 +61,15 @@ public class UserDetailDaoImple extends JpaFactory implements UserDetailDaoInter
                 getManager().merge(udetail);
                 getManager().flush();
                 getManager().getTransaction().commit();
+                getManager().close();
                 return udetail;
             }
         } catch (RuntimeException e) {
-            System.out.println(e.getMessage());
+            log.error(e.getMessage());
             try {
                 getManager().getTransaction().rollback();
             } catch (RollbackException e2) {
-                System.out.println(e2.getMessage());
+                log.error(e2.getMessage());
             }
         }
         return null;
@@ -74,14 +82,15 @@ public class UserDetailDaoImple extends JpaFactory implements UserDetailDaoInter
                 getManager().getTransaction().begin();
                 getManager().remove(udetail);
                 getManager().getTransaction().commit();
+                getManager().close();
                 return udetail;
             }
         } catch (RuntimeException e) {
-            System.out.println(e.getMessage());
+            log.error(e.getMessage());
             try {
                 getManager().getTransaction().rollback();
             } catch (RollbackException e2) {
-                System.out.println(e2.getMessage());
+                log.error(e2.getMessage());
             }
         }
         return null;

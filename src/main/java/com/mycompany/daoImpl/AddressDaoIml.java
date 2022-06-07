@@ -16,6 +16,7 @@ public class AddressDaoIml extends JpaFactory implements AddressDaoInter {
         try {
             TypedQuery<Address> namedQuery = getManager().createNamedQuery("Address.findAll", Address.class);
             List<Address> adress = namedQuery.getResultList();
+            getManager().close();
             return adress;
         } catch (RuntimeException e) {
             try {
@@ -36,6 +37,7 @@ public class AddressDaoIml extends JpaFactory implements AddressDaoInter {
                 getManager().getTransaction().begin();
                 getManager().persist(address);
                 getManager().getTransaction().commit();
+                getManager().close();
                 return address;
             }
         } catch (RuntimeException e) {
@@ -58,6 +60,7 @@ public class AddressDaoIml extends JpaFactory implements AddressDaoInter {
                 getManager().merge(address);
                 getManager().flush();
                 getManager().getTransaction().commit();
+                getManager().close();
                 return address;
             }
         } catch (RuntimeException e) {
@@ -76,6 +79,7 @@ public class AddressDaoIml extends JpaFactory implements AddressDaoInter {
             if (id != null) {
                 Query query = getManager().createNamedQuery("Address.deleteAddressById");
                 query.setParameter("id", id);
+                getManager().close();
                 return true;
             }
         } catch (RuntimeException e) {

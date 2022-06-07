@@ -1,7 +1,5 @@
 package com.mycompany.main;
 
-import com.mycompany.entity.Education;
-import com.mycompany.entity.Language;
 import com.mycompany.entity.Phone;
 import com.mycompany.entity.Skill;
 import com.mycompany.entity.User;
@@ -77,6 +75,8 @@ public class Main {
 //        uskilService.updateUserSkill(userSkill3);
 //        uskilService.updateUserSkill(userSkill4);
 //        uskilService.updateUserSkill(userSkill5);
+
+
         User user = userService.findUser(1);
         System.out.println(user + "\n");
         UserDetail ud2 = user.getUserDetail();

@@ -242,7 +242,8 @@ public class UserDetail implements Serializable {
 
     @Override
     public String toString() {
-        return "UserDetail: " + "\n id: " + id + "\n about: " + about + "\n age: " + age + "\n addDate: " + addDate + "\n updateDate: " + updateDate;
+        return "UserDetail: " + "\n id: " + id + "\n about: " + about + "\n age: " + age + "\n addDate: " 
+                + addDate + "\n updateDate: " + updateDate;
 
     }
 }
